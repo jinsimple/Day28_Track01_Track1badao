@@ -7,11 +7,11 @@
 | Họ tên | MSSV | Phần phụ trách | Góp ý đã đưa cho nhóm bạn |
 |---|---|---|---|
 | Đào Ngọc Bích | 2A202601745 | Khoá phạm vi · chẩn đoán nguyên nhân gốc (Kiến trúc tin cậy + ADKAR + Gartner-Lite) · thiết kế AS-IS/TO-BE · hệ chỉ số dashboard | *(chờ Chặng 3 — chưa phản biện)* |
-| | | | |
+| Lương Thanh Trang | 2A202601363 | Rà soát logic dashboard · đối chiếu product metric và workflow metric với nguồn dữ liệu, owner và hành động khi chỉ số xấu · dựng bản v2 sau phản biện (CH1–CH4) và nhật ký thay đổi · hoàn thiện README | Nhóm ______: *(điền góp ý đã đưa)* |
 | | | | |
 | | | | |
 
-> Các dòng còn lại và cột "Góp ý đã đưa cho nhóm bạn" sẽ điền sau Chặng 3 (kiểm tra chéo). Ô trống = chưa tham gia, không tính điểm cho người đó.
+> **Còn phải điền tay trước khi nộp:** tên nhóm được phản biện và nội dung góp ý đã đưa cho họ (cột 4, cả hai thành viên), cùng ô "Nguồn góp ý" ở sheet *6. Thay doi v1 - v2*. Ô trống = chưa tham gia Chặng 3, không tính điểm cho người đó.
 
 ## 2. Phạm vi
 
@@ -35,8 +35,8 @@
 
 ## 5. Chỉ số
 
-**Product:** % ticket Approved – first pass (baseline 45% → target 70%) · % ticket bị khiếu nại lại trong 7 ngày sau duyệt (baseline 6% → giữ ≤6%, counter-metric chống duyệt ẩu).
-**Workflow:** thời gian thẩm định trung vị/ticket (8 phút → 4 phút) · % trường bắt buộc Sen điền đúng ngay lần đầu (62% → 90%) · % ca gắn cờ được xử lý trong SLA 30 phút (mới → 95%).
+**Product:** M1 % ticket Approved – first pass (baseline 45% → target 70%) · M2 % ticket bị khiếu nại lại trong 7 ngày sau duyệt (baseline 6% → giữ ≤6%, counter-metric chống duyệt ẩu) · **M6 chi phí gán nhãn lại ca tra cứu sai mỗi tháng** (chưa đo → giảm ≥40% so với baseline tháng đầu — *thêm ở v2*).
+**Workflow:** M3 thời gian thẩm định trung vị/ticket (8 phút → 4 phút) · M4 % trường bắt buộc Sen điền đúng ngay lần đầu (62% → 90%) · M5 % ca gắn cờ được xử lý trong SLA 30 phút (mới → 95%).
 Chi tiết baseline · target · nguồn dữ liệu · owner · hành động khi chỉ số xấu: xem [dashboard/dashboard_hanh_dong_v2.xlsx](dashboard/dashboard_hanh_dong_v2.xlsx).
 
 > **Baseline là số giả định** — Day23/Day24 là bài phân tích, chưa có log vận hành thật. Việc đo baseline thật là hạng mục đầu tiên của giai đoạn 0–30 ngày.
@@ -45,4 +45,9 @@ Chi tiết baseline · target · nguồn dữ liệu · owner · hành động k
 
 **SỬA** — không tiếp tục nguyên trạng, không dừng.
 Lý do: nhu cầu và chỗ đứng của AI trong workflow là có thật, cái hỏng là kiến trúc tin cậy — nên sửa tầng kiểm chứng trước, chưa mở rộng phạm vi.
-Hai thay đổi so với v1: *(chờ Chặng 3 — điền sau khi nhận phản biện chéo)*
+
+**Bốn thay đổi so với v1** (chi tiết ở sheet *6. Thay doi v1 - v2* trong dashboard v2):
+1. **CH1 — quy tắc đo M3.** Thời gian thẩm định lấy thô từ log là thời gian *trôi qua*, không phải công sức. Bổ sung: loại ca >30 phút khỏi mẫu và báo cáo riêng tỷ lệ bị loại; ca mở lại nhiều lần chỉ tính lần mở cuối.
+2. **CH2 — thêm chỉ số M6.** Tầng 5 (Giá trị) trước đây chỉ có counter-metric âm. Thêm chi phí gán nhãn lại ca tra cứu sai mỗi tháng — chỉ số duy nhất trả lời "Sen tạo tiết kiệm ròng hay chỉ dời việc sang nhóm gán nhãn".
+3. **CH3 — tách quyền owner M4.** Siết ngưỡng cổng chặn làm khách bị hỏi lại nhiều hơn ⇒ không để Kỹ sư AI quyết một mình; phải có đồng duyệt của Trưởng nhóm CSKH.
+4. **CH4 — thêm kill criteria cho M5.** SLA 30 phút không đạt sau giai đoạn 30–60 ⇒ không mở rộng: hoặc bố trí người trực hàng đợi cờ đỏ, hoặc tắt abstention.

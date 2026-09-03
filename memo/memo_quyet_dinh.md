@@ -27,10 +27,12 @@ Cả hai đều **không phải vấn đề đào tạo**: người dùng buộc
 
 ## 3. Ít nhất 2 thay đổi sau phản biện
 
-*(Chờ Chặng 3 — kiểm tra chéo với nhóm bạn. Điền tối thiểu 2 thay đổi cụ thể vào đây, và đánh dấu tương ứng ở cột "Thay đổi so với v1" trong dashboard v2.)*
+Nhận phản biện từ nhóm ______ theo bốn trục. Bốn thay đổi đã thực hiện, đánh dấu tương ứng ở cột "Thay đổi so với v1" trong dashboard v2 và ghi đầy đủ ở sheet *6. Thay doi v1 - v2*.
 
-1. …
-2. …
+1. **CH1 — sửa quy tắc đo M3 (trục Chỉ số).** Góp ý: khoảng cách giữa `ticket_opened_by_agent` và event quyết định đo thời gian *trôi qua*, không đo công sức — CSKH mở ticket rồi bỏ đó làm việc khác. Sửa: loại khỏi mẫu ca >30 phút và báo cáo riêng tỷ lệ bị loại; ca mở lại nhiều lần chỉ tính lần mở cuối.
+2. **CH2 — thêm chỉ số M6 (trục Chỉ số).** Góp ý: tầng 5 Giá trị chỉ có M2, một counter-metric âm; không có gì chứng minh Sen tạo tiết kiệm ròng — first-pass vẫn có thể tăng trong khi chi phí chỉ chuyển từ CSKH sang nhóm gán nhãn. Sửa: thêm M6 *chi phí gán nhãn lại ca tra cứu sai mỗi tháng*, product-level, owner Policy Owner, target giảm ≥40% so với baseline tháng đầu.
+3. **CH3 — tách quyền owner M4 (trục Hành động).** Góp ý: hành động khi M4 xấu là siết ngưỡng cổng chặn, việc này làm khách bị hỏi lại nhiều hơn — người quyết (Kỹ sư AI) không phải người chịu hậu quả. Sửa: mọi thay đổi ngưỡng cổng chặn phải có đồng duyệt của Trưởng nhóm CSKH.
+4. **CH4 — thêm kill criteria cho M5 (trục Hành động).** Góp ý: M5 có target nhưng không nằm trong điều kiện dừng nào; SLA hỏng thì abstention thành cái bẫy làm chậm khách mà lộ trình vẫn cho chuyển giai đoạn. Sửa: hết 30–60 ngày mà SLA chưa đạt 95% ⇒ không mở rộng, hoặc bố trí người trực hàng đợi cờ đỏ, hoặc tắt abstention và quay lại chuyển người 100% cho nhóm ca này.
 
 ## 4. Quyết định: tiếp tục / sửa / dừng
 
@@ -44,7 +46,7 @@ Sửa kiến trúc tin cậy trước khi mở rộng phạm vi — vì mọi ch
 
 | Giai đoạn | Bước tiếp theo | Dấu hiệu hoàn thành | Owner |
 |---|---|---|---|
-| 0–30 ngày | Đo baseline thật cho 5 chỉ số; gán nhãn 100 ca trả lại gần nhất theo loại lỗi; chỉ định Policy Owner | Có bảng baseline bằng số thật + phân bố loại lỗi; Policy Owner có tên trên văn bản | Đào Ngọc Bích (PO) · Trưởng nhóm CSKH |
+| 0–30 ngày | Đo baseline thật cho 6 chỉ số; gán nhãn 100 ca trả lại gần nhất theo loại lỗi; chỉ định Policy Owner | Có bảng baseline bằng số thật + phân bố loại lỗi; Policy Owner có tên trên văn bản | Đào Ngọc Bích (PO) · Trưởng nhóm CSKH |
 | 30–60 ngày | Bật trích dẫn nguồn + mức tin cậy từng trường; bật cổng chặn ticket khuyết trường trọng yếu; áp checklist thẩm định 3 điểm cho 1 ca pilot | ≥90% ticket mới đủ trường bắt buộc; first-pass nhóm pilot tăng ≥10 điểm; QA mẫu 50 ticket/tuần có trích dẫn khớp ≥95% | PO · Kỹ sư AI · Trưởng ca pilot |
 | 60–90 ngày | Mở rộng toàn bộ ca CSKH; chạy vòng phản hồi hằng tuần; đo giá trị nghiệp vụ | First-pass đạt target 70%; khiếu nại lại không tăng quá 6%; ≥4 chu kỳ cập nhật chính sách do Policy Owner thực hiện | PO · Policy Owner · Giám đốc Vận hành |
 

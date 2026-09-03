@@ -42,14 +42,23 @@ Cả hai đều **không phải vấn đề đào tạo**: người dùng buộc
 
 ## 3. Ít nhất 2 thay đổi sau phản biện
 
-Nhận phản biện từ nhóm ______ theo bốn trục. Bốn thay đổi đã thực hiện, đánh dấu tương ứng ở cột "Thay đổi so với v1" trong dashboard v2 và ghi đầy đủ ở sheet *6. Thay doi v1 - v2*.
+> **Nguồn của các thay đổi dưới đây là rà soát chéo NỘI BỘ trong nhóm, không phải kiểm tra chéo Chặng 3 với nhóm khác.** Chặng 3 tại thời điểm viết chưa diễn ra. Khi có, các thay đổi phát sinh từ đó sẽ được bổ sung thành CH9 trở đi ở sheet *6. Thay doi v1 - v2*, ghi rõ tên nhóm phản biện.
+
+Bản v1 do Đào Ngọc Bích dựng được hai thành viên còn lại rà soát độc lập, mỗi người theo một trục khác nhau — Đặng Thái Nam Sơn soi cấu trúc lập luận framework (CH5–CH8), Lương Thanh Trang soi tính đo được của chỉ số (CH1–CH4). Tám thay đổi đã thực hiện, đánh dấu ở cột "Thay đổi so với v1" trên từng sheet và ghi đầy đủ ở sheet *6. Thay doi v1 - v2*. Bốn thay đổi thuộc trục chỉ số nêu dưới đây:
 
 1. **CH1 — sửa quy tắc đo M3 (trục Chỉ số).** Góp ý: khoảng cách giữa `ticket_opened_by_agent` và event quyết định đo thời gian *trôi qua*, không đo công sức — CSKH mở ticket rồi bỏ đó làm việc khác. Sửa: loại khỏi mẫu ca >30 phút và báo cáo riêng tỷ lệ bị loại; ca mở lại nhiều lần chỉ tính lần mở cuối.
 2. **CH2 — thêm chỉ số M6 (trục Chỉ số).** Góp ý: tầng 5 Giá trị chỉ có M2, một counter-metric âm; không có gì chứng minh Sen tạo tiết kiệm ròng — first-pass vẫn có thể tăng trong khi chi phí chỉ chuyển từ CSKH sang nhóm gán nhãn. Sửa: thêm M6 *chi phí gán nhãn lại ca tra cứu sai mỗi tháng*, product-level, owner Policy Owner, target giảm ≥40% so với baseline tháng đầu. Đây đúng là lỗ hổng đã tự nêu khi hạ *Direction* xuống ĐẠT CÓ ĐIỀU KIỆN — thiếu vế giá trị đặt cạnh chi phí ẩn Day24 — nên M6 khép lại chẩn đoán đó chứ không phải một chỉ số gắn thêm cho đủ.
 3. **CH3 — tách quyền owner M4 (trục Hành động).** Góp ý: hành động khi M4 xấu là siết ngưỡng cổng chặn, việc này làm khách bị hỏi lại nhiều hơn — người có quyền quyết (Kỹ sư AI) không phải người chịu hậu quả. Sửa: mọi thay đổi ngưỡng cổng chặn phải có đồng duyệt của Trưởng nhóm CSKH.
 4. **CH4 — thêm kill criteria cho M5 (trục Hành động).** Góp ý: M5 có target nhưng không nằm trong điều kiện dừng nào; SLA hỏng thì abstention thành cái bẫy làm chậm khách, mà lộ trình vẫn cho chuyển giai đoạn. Sửa: hết 30–60 ngày mà SLA chưa đạt 95% ⇒ không mở rộng, hoặc bố trí người trực hàng đợi cờ đỏ, hoặc tắt abstention và quay lại chuyển người 100% cho nhóm ca này.
 
-*Nguyên tắc giữ khi nhận góp ý: chỉ M6 được lên dashboard vì nó trả lời được "dẫn tới quyết định gì"; chốt kiểm chất lượng nhãn ("khác" ≤15%) không vượt được bài kiểm đó nên đặt ở lộ trình và kill criteria. Cùng một nguyên tắc, hai kết cục khác nhau — không phải hai quan điểm trái nhau.*
+Bốn thay đổi còn lại thuộc trục chẩn đoán, do Đặng Thái Nam Sơn nêu:
+
+5. **CH5 — mở Readiness từ 1 lên 4 nhánh.** v1 chỉ soi governance. Bổ sung nhánh *năng lực vận hành*: QA mẫu 50 ticket/tuần và hàng đợi SLA 30 phút là công việc mới, chưa giao ai, chưa tính định biên — readiness không chỉ là dữ liệu, còn là người để vận hành thứ mình sắp bật.
+6. **CH6 — hạ Direction từ ĐẠT xuống ĐẠT CÓ ĐIỀU KIỆN.** Hướng rõ nhưng chưa có điểm xuất phát đo được: target 70% đang suy ra từ baseline 45% không ai đo. Thiếu thêm vế giá trị đặt cạnh chi phí ẩn Day24 — chính lỗ hổng mà CH2 sau đó lấp bằng M6.
+7. **CH7 — NN1 và NN2 nối tiếp, không song song.** Không thể trích dẫn *phiên bản* của một tập dữ liệu chưa có trường phiên bản ⇒ nửa NN1 thuộc tra cứu chính sách bị chặn bởi readiness–dữ liệu của NN2. Hệ quả: phiên bản hoá tập chính sách chuyển thành hạng mục bắt buộc của 0–30 ngày, không phải việc làm kèm.
+8. **CH8 — vòng học phải có nhịp và có cổng kiểm chất lượng.** Bốn nhãn lý do trả lại là lựa chọn bắt buộc; họp rà 30 phút mỗi tuần, hiện vật là bảng phân bố loại lỗi, Policy Owner chốt. Thêm kill criteria: nhãn "khác" >15% ⇒ nhãn hỏng, dừng dùng để cải thiện.
+
+*Nguyên tắc giữ khi rà soát: chỉ M6 được lên dashboard vì nó trả lời được "dẫn tới quyết định gì"; chốt kiểm chất lượng nhãn ("khác" ≤15%) không vượt được bài kiểm đó nên đặt ở lộ trình và kill criteria. Cùng một nguyên tắc, hai kết cục khác nhau — không phải hai quan điểm trái nhau.*
 
 ## 4. Quyết định: tiếp tục / sửa / dừng
 

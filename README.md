@@ -8,9 +8,9 @@
 |---|---|---|---|
 | Đào Ngọc Bích | 2A202601745 | Khoá phạm vi · chẩn đoán nguyên nhân gốc v1 (Kiến trúc tin cậy + ADKAR + Gartner-Lite + Mollick) · thiết kế AS-IS/TO-BE · hệ chỉ số dashboard · memo quyết định | *(chờ Chặng 3 — chưa phản biện)* |
 | Đặng Thái Nam Sơn | 2A202601431 | Rà soát lại chẩn đoán bằng Gartner-Lite: mở Readiness từ 1 lên 4 nhánh (thêm *năng lực vận hành*), hạ Direction xuống ĐẠT CÓ ĐIỀU KIỆN, chỉ ra quan hệ **nối tiếp** NN1–NN2 · siết vòng học (4 nhãn bắt buộc · nhịp họp tuần · chốt kiểm nhãn) và bổ sung kill criteria vào lộ trình · dựng dashboard v2 kèm cột *Thay đổi so với v1* | *(chờ Chặng 3 — chưa phản biện)* |
-| Lương Thanh Trang | 2A202601363 | Rà soát logic dashboard · đối chiếu product metric và workflow metric với nguồn dữ liệu, owner và hành động khi chỉ số xấu · tiếp nhận phản biện Chặng 3 và thực hiện bốn thay đổi CH1–CH4 · dựng sheet *6. Thay doi v1 - v2* | Nhóm ______: *(điền góp ý đã đưa)* |
+| Lương Thanh Trang | 2A202601363 | Rà soát logic dashboard · đối chiếu product metric và workflow metric với nguồn dữ liệu, owner và hành động khi chỉ số xấu · rà soát nội bộ bản v1 theo trục chỉ số, thực hiện bốn thay đổi CH1–CH4 · dựng sheet *6. Thay doi v1 - v2* | *(chờ Chặng 3 — chưa phản biện)* |
 
-> **Còn phải điền tay trước khi nộp:** tên nhóm được phản biện và nội dung góp ý cả nhóm đã đưa cho họ (cột 4, cả ba thành viên), cùng ô "Nguồn góp ý" ở sheet *6. Thay doi v1 - v2*. Ô trống = chưa tham gia Chặng 3, không có căn cứ chấm cho người đó.
+> **Cột 4 đang trống vì Chặng 3 (kiểm tra chéo với nhóm khác) chưa diễn ra** — mọi thay đổi từ v1 sang v2 tới lúc này đều đến từ rà soát chéo nội bộ trong nhóm. Phải điền tay trước khi nộp: tên nhóm được phản biện và nội dung góp ý cả ba thành viên đã đưa cho họ.
 
 ## 2. Phạm vi
 
@@ -47,9 +47,10 @@ v2 chỉ thêm **đúng một** chỉ số (M6) vì nó trả lời được "d�
 
 **SỬA** — không tiếp tục nguyên trạng, không dừng.
 Lý do: nhu cầu và chỗ đứng của AI trong workflow là có thật, cái hỏng là kiến trúc tin cậy — nên sửa tầng kiểm chứng trước, chưa mở rộng phạm vi.
-**Bốn thay đổi so với v1** sau kiểm tra chéo (chi tiết ở memo §3 và sheet *6. Thay doi v1 - v2*):
+**Tám thay đổi so với v1**, nguồn là rà soát chéo **nội bộ** — Chặng 3 chưa diễn ra (chi tiết ở memo §3 và sheet *6. Thay doi v1 - v2*):
 **CH1** sửa quy tắc đo M3 — loại ca >30 phút, ca mở lại chỉ tính lần cuối, vì log đo thời gian *trôi qua* chứ không đo công sức.
 **CH2** thêm M6 — tầng Giá trị trước chỉ có counter-metric âm, không gì chứng minh Sen tiết kiệm *ròng*.
 **CH3** tách quyền owner M4 — siết ngưỡng cổng chặn phải có đồng duyệt Trưởng nhóm CSKH, người quyết không được khác người chịu hậu quả.
 **CH4** thêm kill criteria cho M5 — SLA hỏng thì abstention thành cái bẫy làm chậm khách, không được chuyển giai đoạn.
+**CH5–CH8** (trục chẩn đoán): mở Readiness lên 4 nhánh · hạ Direction xuống ĐẠT CÓ ĐIỀU KIỆN · chỉ ra NN1–NN2 nối tiếp nên phiên bản hoá chính sách phải nằm ở 0–30 ngày · vòng học có nhịp và có cổng kiểm chất lượng nhãn.
 

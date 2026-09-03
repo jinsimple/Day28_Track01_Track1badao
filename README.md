@@ -8,9 +8,9 @@
 |---|---|---|---|
 | Đào Ngọc Bích | 2A202601745 | Khoá phạm vi · chẩn đoán nguyên nhân gốc v1 (Kiến trúc tin cậy + ADKAR + Gartner-Lite + Mollick) · thiết kế AS-IS/TO-BE · hệ chỉ số dashboard · memo quyết định | *(chờ Chặng 3 — chưa phản biện)* |
 | Đặng Thái Nam Sơn | 2A202601431 | Rà soát lại chẩn đoán bằng Gartner-Lite: mở Readiness từ 1 lên 4 nhánh (thêm *năng lực vận hành*), hạ Direction xuống ĐẠT CÓ ĐIỀU KIỆN, chỉ ra quan hệ **nối tiếp** NN1–NN2 · siết vòng học (4 nhãn bắt buộc · nhịp họp tuần · chốt kiểm nhãn) và bổ sung kill criteria vào lộ trình · dựng dashboard v2 kèm cột *Thay đổi so với v1* | *(chờ Chặng 3 — chưa phản biện)* |
-| Lương Thanh Trang | 2A202601363 | *(đang làm — điền phần phụ trách vào đây)* | *(chờ Chặng 3 — chưa phản biện)* |
+| Lương Thanh Trang | 2A202601363 | Rà soát logic dashboard · đối chiếu product metric và workflow metric với nguồn dữ liệu, owner và hành động khi chỉ số xấu · tiếp nhận phản biện Chặng 3 và thực hiện bốn thay đổi CH1–CH4 · dựng sheet *6. Thay doi v1 - v2* | Nhóm ______: *(điền góp ý đã đưa)* |
 
-> Cột "Góp ý đã đưa cho nhóm bạn" sẽ điền sau Chặng 3 (kiểm tra chéo). Ô trống = chưa tham gia chặng đó, không có căn cứ chấm cho người đó.
+> **Còn phải điền tay trước khi nộp:** tên nhóm được phản biện và nội dung góp ý cả nhóm đã đưa cho họ (cột 4, cả ba thành viên), cùng ô "Nguồn góp ý" ở sheet *6. Thay doi v1 - v2*. Ô trống = chưa tham gia Chặng 3, không có căn cứ chấm cho người đó.
 
 ## 2. Phạm vi
 
@@ -36,10 +36,10 @@
 
 ## 5. Chỉ số
 
-**Product:** % ticket Approved – first pass (baseline 45% → target 70%) · % ticket bị khiếu nại lại trong 7 ngày sau duyệt (baseline 6% → giữ ≤6%, counter-metric chống duyệt ẩu).
-**Workflow:** thời gian thẩm định trung vị/ticket (8 phút → 4 phút) · % trường bắt buộc Sen điền đúng ngay lần đầu (62% → 90%) · % ca gắn cờ được xử lý trong SLA 30 phút (mới → 95%).
-Chi tiết baseline · target · nguồn dữ liệu · owner · hành động khi chỉ số xấu: xem [dashboard/dashboard_hanh_dong_v2.xlsx](dashboard/dashboard_hanh_dong_v2.xlsx) — bản v2 có thêm cột *Thay đổi so với v1* trên cả 5 sheet. Bản gốc: [v1/dashboard_hanh_dong_v1.xlsx](v1/dashboard_hanh_dong_v1.xlsx).
-v2 giữ nguyên **đúng 5 chỉ số** — không thêm chỉ số mới; chốt kiểm chất lượng nhãn nằm ở lộ trình và kill criteria, không đưa lên dashboard.
+**Product:** M1 % ticket Approved – first pass (45% → 70%) · M2 % ticket bị khiếu nại lại trong 7 ngày sau duyệt (6% → giữ ≤6%, counter-metric chống duyệt ẩu) · M6 chi phí gán nhãn lại ca tra cứu sai mỗi tháng (chưa đo → giảm ≥40% — *thêm ở v2*).
+**Workflow:** M3 thời gian thẩm định trung vị/ticket (8 phút → 4 phút) · M4 % trường bắt buộc Sen điền đúng ngay lần đầu (62% → 90%) · M5 % ca gắn cờ được xử lý trong SLA 30 phút (mới → 95%).
+Chi tiết baseline · target · nguồn dữ liệu · owner · hành động khi chỉ số xấu: xem [dashboard/dashboard_hanh_dong_v2.xlsx](dashboard/dashboard_hanh_dong_v2.xlsx) — cột *Thay đổi so với v1* trên từng sheet, nhật ký đầy đủ ở sheet *6. Thay doi v1 - v2*. Bản gốc: [v1/dashboard_hanh_dong_v1.xlsx](v1/dashboard_hanh_dong_v1.xlsx).
+v2 chỉ thêm **đúng một** chỉ số (M6) vì nó trả lời được "dẫn tới quyết định gì"; chốt kiểm chất lượng nhãn không vượt được bài kiểm đó nên nằm ở lộ trình và kill criteria, không lên dashboard.
 
 > **Baseline là số giả định** — Day23/Day24 là bài phân tích, chưa có log vận hành thật. Việc đo baseline thật là hạng mục đầu tiên của giai đoạn 0–30 ngày.
 
@@ -47,5 +47,9 @@ v2 giữ nguyên **đúng 5 chỉ số** — không thêm chỉ số mới; ch�
 
 **SỬA** — không tiếp tục nguyên trạng, không dừng.
 Lý do: nhu cầu và chỗ đứng của AI trong workflow là có thật, cái hỏng là kiến trúc tin cậy — nên sửa tầng kiểm chứng trước, chưa mở rộng phạm vi.
-Hai thay đổi so với v1 *từ phản biện chéo*: *(chờ Chặng 3 — điền sau khi nhận phản biện chéo)*
+**Bốn thay đổi so với v1** sau kiểm tra chéo (chi tiết ở memo §3 và sheet *6. Thay doi v1 - v2*):
+**CH1** sửa quy tắc đo M3 — loại ca >30 phút, ca mở lại chỉ tính lần cuối, vì log đo thời gian *trôi qua* chứ không đo công sức.
+**CH2** thêm M6 — tầng Giá trị trước chỉ có counter-metric âm, không gì chứng minh Sen tiết kiệm *ròng*.
+**CH3** tách quyền owner M4 — siết ngưỡng cổng chặn phải có đồng duyệt Trưởng nhóm CSKH, người quyết không được khác người chịu hậu quả.
+**CH4** thêm kill criteria cho M5 — SLA hỏng thì abstention thành cái bẫy làm chậm khách, không được chuyển giai đoạn.
 

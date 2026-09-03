@@ -1,6 +1,6 @@
 # Memo quyết định — Sen (FIN-05)
 
-**Người viết:** Đào Ngọc Bích · 2A202601745
+**Nhóm:** Track1badao — Đào Ngọc Bích (2A202601745) · Đặng Thái Nam Sơn (2A202601431) · Lương Thanh Trang (2A202601363)
 **Phạm vi:** Sen — AI Agent CSKH ví điện tử · người dùng chính: CSKH tuyến 1 · 3 quy trình: trích xuất/tạo ticket, tra cứu chính sách hoàn tiền, thẩm định & duyệt lần đầu.
 
 ## 1. Vấn đề và nguyên nhân gốc
@@ -19,7 +19,7 @@ Cả hai đều **không phải vấn đề đào tạo**: người dùng buộc
 
 **Gartner-Lite:**
 
-*Direction* — **ĐẠT CÓ ĐIỀU KIỆN.** Hướng rõ về định tính: mục tiêu giảm thời gian CSKH dành cho xác minh thủ công, NSM là % ticket Approved first-pass, có định nghĩa từ Day23. Nhưng cả 5 chỉ số đang chạy trên **baseline giả định** — Day23/Day24 là bài phân tích thiết kế, chưa có log vận hành thật. Một Direction có đích mà chưa có điểm xuất phát đo được thì chưa kiểm chứng được: target 70% đang được suy ra từ con số 45% không ai đo. Thiếu thêm vế giá trị — Day24 đã liệt kê chi phí ẩn định kỳ (gán nhãn lại, retrain theo drift chính sách) nhưng chưa có phía đối ứng quy đổi lợi ích của việc rút thời gian thẩm định.
+*Direction* — **ĐẠT CÓ ĐIỀU KIỆN.** Hướng rõ về định tính: mục tiêu giảm thời gian CSKH dành cho xác minh thủ công, NSM là % ticket Approved first-pass, có định nghĩa từ Day23. Nhưng cả 6 chỉ số đang chạy trên **baseline giả định** — Day23/Day24 là bài phân tích thiết kế, chưa có log vận hành thật. Một Direction có đích mà chưa có điểm xuất phát đo được thì chưa kiểm chứng được: target 70% đang được suy ra từ con số 45% không ai đo. Thiếu thêm vế giá trị — Day24 đã liệt kê chi phí ẩn định kỳ (gán nhãn lại, retrain theo drift chính sách) nhưng chưa có phía đối ứng quy đổi lợi ích của việc rút thời gian thẩm định.
 
 *Readiness* — **THIẾU ở 3/4 nhánh**, không chỉ ở governance:
 
@@ -42,10 +42,14 @@ Cả hai đều **không phải vấn đề đào tạo**: người dùng buộc
 
 ## 3. Ít nhất 2 thay đổi sau phản biện
 
-*(Chờ Chặng 3 — kiểm tra chéo với nhóm bạn. Điền tối thiểu 2 thay đổi cụ thể vào đây, và đánh dấu tương ứng ở cột "Thay đổi so với v1" trong dashboard v2.)*
+Nhận phản biện từ nhóm ______ theo bốn trục. Bốn thay đổi đã thực hiện, đánh dấu tương ứng ở cột "Thay đổi so với v1" trong dashboard v2 và ghi đầy đủ ở sheet *6. Thay doi v1 - v2*.
 
-1. …
-2. …
+1. **CH1 — sửa quy tắc đo M3 (trục Chỉ số).** Góp ý: khoảng cách giữa `ticket_opened_by_agent` và event quyết định đo thời gian *trôi qua*, không đo công sức — CSKH mở ticket rồi bỏ đó làm việc khác. Sửa: loại khỏi mẫu ca >30 phút và báo cáo riêng tỷ lệ bị loại; ca mở lại nhiều lần chỉ tính lần mở cuối.
+2. **CH2 — thêm chỉ số M6 (trục Chỉ số).** Góp ý: tầng 5 Giá trị chỉ có M2, một counter-metric âm; không có gì chứng minh Sen tạo tiết kiệm ròng — first-pass vẫn có thể tăng trong khi chi phí chỉ chuyển từ CSKH sang nhóm gán nhãn. Sửa: thêm M6 *chi phí gán nhãn lại ca tra cứu sai mỗi tháng*, product-level, owner Policy Owner, target giảm ≥40% so với baseline tháng đầu. Đây đúng là lỗ hổng đã tự nêu khi hạ *Direction* xuống ĐẠT CÓ ĐIỀU KIỆN — thiếu vế giá trị đặt cạnh chi phí ẩn Day24 — nên M6 khép lại chẩn đoán đó chứ không phải một chỉ số gắn thêm cho đủ.
+3. **CH3 — tách quyền owner M4 (trục Hành động).** Góp ý: hành động khi M4 xấu là siết ngưỡng cổng chặn, việc này làm khách bị hỏi lại nhiều hơn — người có quyền quyết (Kỹ sư AI) không phải người chịu hậu quả. Sửa: mọi thay đổi ngưỡng cổng chặn phải có đồng duyệt của Trưởng nhóm CSKH.
+4. **CH4 — thêm kill criteria cho M5 (trục Hành động).** Góp ý: M5 có target nhưng không nằm trong điều kiện dừng nào; SLA hỏng thì abstention thành cái bẫy làm chậm khách, mà lộ trình vẫn cho chuyển giai đoạn. Sửa: hết 30–60 ngày mà SLA chưa đạt 95% ⇒ không mở rộng, hoặc bố trí người trực hàng đợi cờ đỏ, hoặc tắt abstention và quay lại chuyển người 100% cho nhóm ca này.
+
+*Nguyên tắc giữ khi nhận góp ý: chỉ M6 được lên dashboard vì nó trả lời được "dẫn tới quyết định gì"; chốt kiểm chất lượng nhãn ("khác" ≤15%) không vượt được bài kiểm đó nên đặt ở lộ trình và kill criteria. Cùng một nguyên tắc, hai kết cục khác nhau — không phải hai quan điểm trái nhau.*
 
 ## 4. Quyết định: tiếp tục / sửa / dừng
 
@@ -59,7 +63,7 @@ Sửa kiến trúc tin cậy trước khi mở rộng phạm vi — vì mọi ch
 
 | Giai đoạn | Bước tiếp theo | Dấu hiệu hoàn thành | Owner |
 |---|---|---|---|
-| 0–30 ngày | Đo baseline thật cho 5 chỉ số; gán nhãn 100 ca trả lại gần nhất theo loại lỗi; chỉ định Policy Owner; **dựng bảng phiên bản + ngày hiệu lực cho tập chính sách** | Có bảng baseline bằng số thật + phân bố loại lỗi; Policy Owner có tên trên văn bản; **100% văn bản chính sách có phiên bản + ngày hiệu lực** | Đào Ngọc Bích (PO) · Trưởng nhóm CSKH · Policy Owner |
+| 0–30 ngày | Đo baseline thật cho 6 chỉ số; gán nhãn 100 ca trả lại gần nhất theo loại lỗi; chỉ định Policy Owner; **dựng bảng phiên bản + ngày hiệu lực cho tập chính sách** | Có bảng baseline bằng số thật + phân bố loại lỗi; Policy Owner có tên trên văn bản; **100% văn bản chính sách có phiên bản + ngày hiệu lực** | Đào Ngọc Bích (PO) · Trưởng nhóm CSKH · Policy Owner |
 | 30–60 ngày | Bật trích dẫn nguồn + mức tin cậy từng trường; bật cổng chặn ticket khuyết trường trọng yếu; áp checklist thẩm định 3 điểm cho 1 ca pilot; **khởi động vòng phản hồi trên nhóm pilot — phân loại lý do trả lại theo 4 nhãn, họp rà hằng tuần** | ≥90% ticket mới đủ trường bắt buộc; first-pass nhóm pilot tăng ≥10 điểm; QA mẫu 50 ticket/tuần có trích dẫn khớp ≥95%; **tỷ lệ nhãn "khác" ≤15%** | PO · Kỹ sư AI (QA mẫu) · Trưởng ca pilot |
 | 60–90 ngày | Mở rộng toàn bộ ca CSKH; duy trì vòng phản hồi hằng tuần; đo giá trị nghiệp vụ | First-pass đạt target 70%; khiếu nại lại không tăng quá 6%; ≥4 chu kỳ cập nhật chính sách do Policy Owner thực hiện **và phân bố loại lỗi dịch chuyển được so với đường cơ sở 100 ca — chứng minh vòng học có tác dụng, không chỉ có chạy** | PO · Policy Owner · Giám đốc Vận hành |
 

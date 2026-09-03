@@ -16,7 +16,7 @@
 
 1 sản phẩm AI: **Sen** — agent trích xuất thông tin giao dịch từ hội thoại và dựng hồ sơ ticket hoàn tiền (đã triển khai, CSKH vẫn xác minh lại thủ công).
 1 nhóm người dùng chính: **nhân viên CSKH tuyến 1** xử lý ticket sự cố giao dịch (không phải khách hàng cuối — khách chỉ là người kích hoạt luồng).
-3 quy trình: (1) tiếp nhận & trích xuất → tạo ticket · (2) tra cứu chính sách hoàn tiền áp dụng · (3) thẩm định & duyệt lần đầu của CSKH.
+3 quy trình, viết theo góc người dùng chính: (1) tiếp nhận hồ sơ Sen bàn giao và đối chiếu trường trích xuất · (2) đối chiếu điều khoản chính sách Sen đề xuất · (3) thẩm định và quyết định duyệt/trả lại.
 
 ## 3. Nguyên nhân gốc
 
@@ -36,10 +36,10 @@
 
 ## 5. Chỉ số
 
-**Product:** M1 % ticket Approved – first pass (45% → 70%) · M2 % ticket bị khiếu nại lại trong 7 ngày sau duyệt (6% → giữ ≤6%, counter-metric chống duyệt ẩu) · M6 chi phí gán nhãn lại ca tra cứu sai mỗi tháng (chưa đo → giảm ≥40% — *thêm ở v2*).
+**Product:** M1 % ticket Approved – first pass (45% → 70%) · M2 % ticket bị khiếu nại lại trong 7 ngày sau duyệt (6% → giữ ≤6%, counter-metric chống duyệt ẩu) · M6 chi phí gán nhãn lại ca tra cứu sai mỗi tháng · M7 % hội thoại bị cổng chặn mà khách không quay lại trong 24 giờ (*hai chỉ số thêm ở v2, target chốt sau khi đo baseline*).
 **Workflow:** M3 thời gian thẩm định trung vị/ticket (8 phút → 4 phút) · M4 % trường bắt buộc Sen điền đúng ngay lần đầu (62% → 90%) · M5 % ca gắn cờ được xử lý trong SLA 30 phút (mới → 95%).
 Chi tiết baseline · target · nguồn dữ liệu · owner · hành động khi chỉ số xấu: xem [dashboard/dashboard_hanh_dong_v2.xlsx](dashboard/dashboard_hanh_dong_v2.xlsx) — cột *Thay đổi so với v1* trên từng sheet, nhật ký đầy đủ ở sheet *6. Thay doi v1 - v2*. Bản gốc: [v1/dashboard_hanh_dong_v1.xlsx](v1/dashboard_hanh_dong_v1.xlsx).
-v2 chỉ thêm **đúng một** chỉ số (M6) vì nó trả lời được "dẫn tới quyết định gì"; chốt kiểm chất lượng nhãn không vượt được bài kiểm đó nên nằm ở lộ trình và kill criteria, không lên dashboard.
+M1 phải đọc kèm **ba chỉ số chặn**: M2 (mua first-pass bằng chất lượng phục vụ), M6 (bằng công sức nhóm gán nhãn), M7 (bằng việc loại ca khó khỏi luồng trước khi thành ticket).
 
 > **Baseline là số giả định** — Day23/Day24 là bài phân tích, chưa có log vận hành thật. Việc đo baseline thật là hạng mục đầu tiên của giai đoạn 0–30 ngày.
 
@@ -47,10 +47,14 @@ v2 chỉ thêm **đúng một** chỉ số (M6) vì nó trả lời được "d�
 
 **SỬA** — không tiếp tục nguyên trạng, không dừng.
 Lý do: nhu cầu và chỗ đứng của AI trong workflow là có thật, cái hỏng là kiến trúc tin cậy — nên sửa tầng kiểm chứng trước, chưa mở rộng phạm vi.
-**Tám thay đổi so với v1**, nguồn là rà soát chéo **nội bộ** — Chặng 3 chưa diễn ra (chi tiết ở memo §3 và sheet *6. Thay doi v1 - v2*):
+**Mười hai thay đổi so với v1** — CH1–CH8 từ rà soát chéo **nội bộ**, CH9–CH12 từ rà soát đối kháng có hỗ trợ AI; **cả hai đều không phải Chặng 3**, kiểm tra chéo với nhóm khác chưa diễn ra (chi tiết ở memo §3 và sheet *6. Thay doi v1 - v2*):
 **CH1** sửa quy tắc đo M3 — loại ca >30 phút, ca mở lại chỉ tính lần cuối, vì log đo thời gian *trôi qua* chứ không đo công sức.
 **CH2** thêm M6 — tầng Giá trị trước chỉ có counter-metric âm, không gì chứng minh Sen tiết kiệm *ròng*.
 **CH3** tách quyền owner M4 — siết ngưỡng cổng chặn phải có đồng duyệt Trưởng nhóm CSKH, người quyết không được khác người chịu hậu quả.
 **CH4** thêm kill criteria cho M5 — SLA hỏng thì abstention thành cái bẫy làm chậm khách, không được chuyển giai đoạn.
 **CH5–CH8** (trục chẩn đoán): mở Readiness lên 4 nhánh · hạ Direction xuống ĐẠT CÓ ĐIỀU KIỆN · chỉ ra NN1–NN2 nối tiếp nên phiên bản hoá chính sách phải nằm ở 0–30 ngày · vòng học có nhịp và có cổng kiểm chất lượng nhãn.
+**CH9** thêm M7 và kill criteria cho cổng chặn — hỏi lại khách đang mất tiền thì họ bỏ đi, ticket không bao giờ được tạo, M1 tăng giả.
+**CH10** gỡ target phần trăm khỏi chỉ số có baseline "chưa đo" — chính lỗi đã bắt ở CH6, lần này áp cho mình.
+**CH11** viết lại ba quy trình theo góc CSKH — v1 mô tả 2/3 quy trình bằng hành động của Sen, tức việc bên trong máy.
+**CH12** tách quyền owner M5 — SLA hỏng vì định biên, thứ Trưởng ca không tự quyết được.
 

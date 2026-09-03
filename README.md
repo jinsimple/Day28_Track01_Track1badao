@@ -8,10 +8,9 @@
 |---|---|---|---|
 | Đào Ngọc Bích | 2A202601745 | Khoá phạm vi · chẩn đoán nguyên nhân gốc v1 (Kiến trúc tin cậy + ADKAR + Gartner-Lite + Mollick) · thiết kế AS-IS/TO-BE · hệ chỉ số dashboard · memo quyết định | *(chờ Chặng 3 — chưa phản biện)* |
 | Đặng Thái Nam Sơn | 2A202601431 | Rà soát lại chẩn đoán bằng Gartner-Lite: mở Readiness từ 1 lên 4 nhánh (thêm *năng lực vận hành*), hạ Direction xuống ĐẠT CÓ ĐIỀU KIỆN, chỉ ra quan hệ **nối tiếp** NN1–NN2 · siết vòng học (4 nhãn bắt buộc · nhịp họp tuần · chốt kiểm nhãn) và bổ sung kill criteria vào lộ trình · dựng dashboard v2 kèm cột *Thay đổi so với v1* | *(chờ Chặng 3 — chưa phản biện)* |
-| | | | |
-| | | | |
+| Lương Thanh Trang | 2A202601363 | *(đang làm — điền phần phụ trách vào đây)* | *(chờ Chặng 3 — chưa phản biện)* |
 
-> Các dòng còn lại và cột "Góp ý đã đưa cho nhóm bạn" sẽ điền sau Chặng 3 (kiểm tra chéo). Ô trống = chưa tham gia, không tính điểm cho người đó.
+> Cột "Góp ý đã đưa cho nhóm bạn" sẽ điền sau Chặng 3 (kiểm tra chéo). Ô trống = chưa tham gia chặng đó, không có căn cứ chấm cho người đó.
 
 ## 2. Phạm vi
 

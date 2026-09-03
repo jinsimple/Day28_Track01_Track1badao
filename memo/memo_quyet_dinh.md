@@ -17,7 +17,22 @@ Cả hai đều **không phải vấn đề đào tạo**: người dùng buộc
 
 **Kiến trúc tin cậy** (nguồn → trích nguồn → QA mẫu → chuyển người → phản hồi): hiện chỉ có mắt xích *chuyển người*; khuyết trích nguồn, QA mẫu và phản hồi — đây là căn cứ trực tiếp cho NN1.
 
-**Gartner-Lite:** *Direction* ĐẠT (mục tiêu giảm tải CSKH rõ ràng, có định nghĩa NSM từ Day23). *Readiness* THIẾU ở nhánh governance — không có data owner cho tập chính sách hoàn tiền. *Absorption* THIẾU — không có cơ chế học từ lỗi, các ca trả lại và khiếu nại không quay ngược thành dữ liệu cải thiện. Kết luận: **chưa đủ điều kiện rollout rộng, phải sửa readiness trước.**
+**Gartner-Lite:**
+
+*Direction* — **ĐẠT CÓ ĐIỀU KIỆN.** Hướng rõ về định tính: mục tiêu giảm thời gian CSKH dành cho xác minh thủ công, NSM là % ticket Approved first-pass, có định nghĩa từ Day23. Nhưng cả 5 chỉ số đang chạy trên **baseline giả định** — Day23/Day24 là bài phân tích thiết kế, chưa có log vận hành thật. Một Direction có đích mà chưa có điểm xuất phát đo được thì chưa kiểm chứng được: target 70% đang được suy ra từ con số 45% không ai đo. Thiếu thêm vế giá trị — Day24 đã liệt kê chi phí ẩn định kỳ (gán nhãn lại, retrain theo drift chính sách) nhưng chưa có phía đối ứng quy đổi lợi ích của việc rút thời gian thẩm định.
+
+*Readiness* — **THIẾU ở 3/4 nhánh**, không chỉ ở governance:
+
+| Nhánh | Kết quả | Nhận định |
+|---|---|---|
+| Dữ liệu | THIẾU | Tập chính sách hoàn tiền không có trường phiên bản / ngày hiệu lực; mỗi ví một khác và đổi liên tục. Chỉ định owner **không** tự sinh ra các trường này. |
+| Governance | THIẾU | Không ai chịu trách nhiệm tính đúng-đủ-mới của tập dữ liệu Sen tra cứu. |
+| Quyền | ĐẠT | Sen tuyệt đối không tự duyệt hoàn tiền — đúng, và là ràng buộc phải giữ nguyên khi mở rộng ở giai đoạn 60–90. |
+| Năng lực vận hành | THIẾU | QA mẫu 50 ticket/tuần và hàng đợi ưu tiên SLA 30 phút cho ca gắn cờ là **công việc mới**, chưa giao cho ai và chưa tính vào định biên. |
+
+*Absorption* — **THIẾU.** Ca trả lại và ca khiếu nại không quay ngược thành dữ liệu cải thiện. Đáy của vấn đề nằm sâu hơn "chưa ai làm": dữ liệu học phải do chính CSKH sinh ra bằng thao tác phân loại lý do trả lại, đúng lúc họ đang chịu tải cao nhất — nếu không ràng buộc, cột lý do sẽ dồn vào giá trị *"khác"* và vòng học nhận về nhiễu. Chốt kiểm bắt buộc: **tỷ lệ nhãn "khác" > 15% ⇒ coi như nhãn hỏng, không dùng để cải thiện.** Ngoài ra vòng phản hồi chưa có nhịp — chưa có buổi họp, hiện vật và người chốt được đặt tên; một vòng lặp không có cuộc họp thì không phải vòng lặp.
+
+**Kết luận Gartner-Lite:** chưa đủ điều kiện rollout rộng, phải sửa readiness trước. Và hệ quả quan trọng hơn lên thứ tự làm việc — **NN1 và NN2 không song song, chúng nối tiếp một nửa.** TO-BE yêu cầu mỗi đề xuất hoàn tiền kèm *tên văn bản · phiên bản · ngày hiệu lực*; không thể trích dẫn phiên bản của một tập dữ liệu chưa có trường phiên bản. Nửa NN1 thuộc về hội thoại (trích dẫn đoạn chat + mức tin cậy từng trường) là độc lập, kỹ sư AI làm được ngay; nửa thuộc về chính sách **bị chặn bởi readiness–dữ liệu của NN2**. Vì vậy phiên bản hoá tập chính sách là hạng mục bắt buộc của giai đoạn 0–30, không phải việc làm kèm.
 
 **ADKAR:** Awareness và Desire ĐẠT; **Ability NGHẼN** — thiếu công cụ và checklist để thẩm định nhanh output AI; Reinforcement RỦI RO — nếu chỉ chạy theo chỉ tiêu first-pass mà không có counter-metric, nhân viên có thể duyệt ẩu.
 
@@ -44,8 +59,8 @@ Sửa kiến trúc tin cậy trước khi mở rộng phạm vi — vì mọi ch
 
 | Giai đoạn | Bước tiếp theo | Dấu hiệu hoàn thành | Owner |
 |---|---|---|---|
-| 0–30 ngày | Đo baseline thật cho 5 chỉ số; gán nhãn 100 ca trả lại gần nhất theo loại lỗi; chỉ định Policy Owner | Có bảng baseline bằng số thật + phân bố loại lỗi; Policy Owner có tên trên văn bản | Đào Ngọc Bích (PO) · Trưởng nhóm CSKH |
-| 30–60 ngày | Bật trích dẫn nguồn + mức tin cậy từng trường; bật cổng chặn ticket khuyết trường trọng yếu; áp checklist thẩm định 3 điểm cho 1 ca pilot | ≥90% ticket mới đủ trường bắt buộc; first-pass nhóm pilot tăng ≥10 điểm; QA mẫu 50 ticket/tuần có trích dẫn khớp ≥95% | PO · Kỹ sư AI · Trưởng ca pilot |
-| 60–90 ngày | Mở rộng toàn bộ ca CSKH; chạy vòng phản hồi hằng tuần; đo giá trị nghiệp vụ | First-pass đạt target 70%; khiếu nại lại không tăng quá 6%; ≥4 chu kỳ cập nhật chính sách do Policy Owner thực hiện | PO · Policy Owner · Giám đốc Vận hành |
+| 0–30 ngày | Đo baseline thật cho 5 chỉ số; gán nhãn 100 ca trả lại gần nhất theo loại lỗi; chỉ định Policy Owner; **dựng bảng phiên bản + ngày hiệu lực cho tập chính sách** | Có bảng baseline bằng số thật + phân bố loại lỗi; Policy Owner có tên trên văn bản; **100% văn bản chính sách có phiên bản + ngày hiệu lực** | Đào Ngọc Bích (PO) · Trưởng nhóm CSKH · Policy Owner |
+| 30–60 ngày | Bật trích dẫn nguồn + mức tin cậy từng trường; bật cổng chặn ticket khuyết trường trọng yếu; áp checklist thẩm định 3 điểm cho 1 ca pilot; **khởi động vòng phản hồi trên nhóm pilot — phân loại lý do trả lại theo 4 nhãn, họp rà hằng tuần** | ≥90% ticket mới đủ trường bắt buộc; first-pass nhóm pilot tăng ≥10 điểm; QA mẫu 50 ticket/tuần có trích dẫn khớp ≥95%; **tỷ lệ nhãn "khác" ≤15%** | PO · Kỹ sư AI (QA mẫu) · Trưởng ca pilot |
+| 60–90 ngày | Mở rộng toàn bộ ca CSKH; duy trì vòng phản hồi hằng tuần; đo giá trị nghiệp vụ | First-pass đạt target 70%; khiếu nại lại không tăng quá 6%; ≥4 chu kỳ cập nhật chính sách do Policy Owner thực hiện **và phân bố loại lỗi dịch chuyển được so với đường cơ sở 100 ca — chứng minh vòng học có tác dụng, không chỉ có chạy** | PO · Policy Owner · Giám đốc Vận hành |
 
-**Gate chuyển giai đoạn:** chỉ sang 30–60 khi đã có baseline bằng số thật và Policy Owner được chỉ định; chỉ sang 60–90 khi pilot đạt ngưỡng chất lượng ở trên. Nếu tới mốc 90 ngày mà first-pass không cải thiện dù chất lượng trích xuất đã đạt 90%, kết luận nghẽn không nằm ở AI — chuyển hướng sang quy trình/nhân sự thay vì đầu tư thêm vào mô hình.
+**Gate chuyển giai đoạn:** chỉ sang 30–60 khi đã có baseline bằng số thật, Policy Owner được chỉ định **và tập chính sách đã có phiên bản + ngày hiệu lực** (không có ba thứ này thì tính năng trích dẫn ở giai đoạn sau không có gì để trích); chỉ sang 60–90 khi pilot đạt ngưỡng chất lượng ở trên. **Nếu quá 30 ngày mà Policy Owner vẫn chưa được chỉ định: không chuyển giai đoạn, kết luận tổ chức chưa sẵn sàng ở tầng governance — NN2 không sửa được bằng kỹ thuật — và đưa vấn đề lên cấp quyết định.** Nếu tới mốc 90 ngày mà first-pass không cải thiện dù chất lượng trích xuất đã đạt 90%, kết luận nghẽn không nằm ở AI — chuyển hướng sang quy trình/nhân sự thay vì đầu tư thêm vào mô hình.
